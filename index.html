@@ -5,13 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Memory game</title>
     <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <h3>Score:<span id="result"></span></h3>
+    <div class="game-menu">
+        <h1 class="game-title">Memory game</h1>
+        <div class="select">
+            <select name="level" id="standard-select">
+                <option value="easy">Легкий</option>
+                <option value="medium">Средний</option>
+                <option value="hard">Тяжелый</option>
+            </select>
+        </div>
 
-    <div class="grid"></div>
-    
+        <button type="submit" class="game-button__style game-button">Начать игру</button>
+    </div>
+
+
+    <div class="game-content">
+        <div class="game-content__left">
+            <h3 class="game-score__title">Очки:<span class="game-score__result" id="result">0</span></h3>
+
+            <div class="container">
+                <div class="game-images"></div>
+            </div>
+
+            <button class="game-button__style game-new">Новая игра</button>
+        </div>
+
+        <div class="game-content__right">
+            <h3 class="game-score__title">Рекорд:</h3>
+
+            <div class="game-record__table">
+                <div class="game-record">
+                    <p>Name</p>
+                    <p>10</p>
+                </div>
+
+            </div>
+        </div>
+
+    </div> 
+
     <script src="./script.js"></script>
+    
 </body>
 </html>

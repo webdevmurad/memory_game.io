@@ -1,15 +1,3 @@
-Игра на запоминание.
+Игра на запоминание реализованная на JavaScript. 
 
-Что мы применяли тут ?
-
-*addEventListener
-
-*setAttribute
-
-*getAttribute
-
-*data-name
-
-*document.querySelector
-
-*createElement
+https://webdevmurad.github.io/memory_game.io/
