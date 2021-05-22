@@ -27,7 +27,6 @@
     <div class="game-content">
         <div class="game-content__left">
             <h3 class="game-score__title">Очки:<span class="game-score__result" id="result">0</span></h3>
-
             <div class="container">
                 <div class="game-images"></div>
             </div>
@@ -37,17 +36,25 @@
 
         <div class="game-content__right">
             <h3 class="game-score__title">Рекорд:</h3>
-
-            <div class="game-record__table">
-                <div class="game-record">
-                    <p>Name</p>
-                    <p>10</p>
-                </div>
-
-            </div>
+            <div class="game-record__table"></div>
         </div>
 
     </div> 
+
+    <div class="modal" id="myModal" aria-hidden="true" >
+        <div class="modal__wrap">
+            <div class="modal__window" role="dialog" aria-modal="true" >
+                <h2 class="modal__title">Запишите результат</h2>
+                <input class="modal__input" type="text">
+                <button class="game-button__style modal__button">Сохранить</button>
+                <img class="modal__close" src="./images/cancel.png" alt="cancel">
+            </div>
+        </div>
+    </div>
+
+    <div class="game-message__screen">
+        <h1>Откройте через копмьютер, или через гаджет шириной больше 990px</h1>
+    </div>
 
     <script src="./script.js"></script>
     

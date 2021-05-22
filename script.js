@@ -266,35 +266,51 @@ document.addEventListener('DOMContentLoaded', () => {
         gameMenu = document.querySelector('.game-menu'),
         gameContent = document.querySelector('.game-content'),
         gameNew = document.querySelector('.game-new'),
-        resultDisplay = document.querySelector('#result');
+        resultDisplay = document.querySelector('#result'),
+        closeModalBtn = document.querySelector('.modal__close'),
+        modalWindow = document.querySelector('#myModal'),
+        saveCountBtn = document.querySelector('.modal__button'),
+        namePerson = document.querySelector('.modal__input'),
+        recordTable = document.querySelector('.game-record__table');
     
     let hasFlippedCard = false,
         firstCard = null, 
         secondCard = null,
         cardLevel = null,
         lockBoard = false,
-        cardsWon = [];
+        cardsWon = [],
+        easyRecords = [],
+        mediumRecords = [],
+        hardRecords = [],
+        staticArray = null,
+        localName = null;
 
     btnStartGame.onclick = () => {
         const levelGame = document.querySelector('#standard-select');
         cardLevel = null;
+        localName = null;
+        cardsWon = [];
+        resultDisplay.innerHTML = "0";
         switch(levelGame.value) {
             case 'easy':
-                createBoard(cardEasy, levelGame.value);
+                localName = 'easy'
+                createBoard(cardEasy, levelGame.value, easyRecords, localName);
                 cardLevel = cardEasy;
                 break
             case 'medium': 
-                createBoard(cardMedium, levelGame.value);
+                localName = 'medium'
+                createBoard(cardMedium, levelGame.value, mediumRecords, localName);
                 cardLevel = cardMedium;
                 break
             case 'hard': 
-                createBoard(cardHard, levelGame.value);
+                localName = 'hard'
+                createBoard(cardHard, levelGame.value, hardRecords, localName);
                 cardLevel = cardHard;
                 break
         }
     }
 
-    function createBoard(cardArray, levelGame) {
+    function createBoard(cardArray, levelGame, array, localName) {
         gameMenu.style.display = 'none';
         gameContent.style.display = 'flex';
 
@@ -306,7 +322,10 @@ document.addEventListener('DOMContentLoaded', () => {
             card.addEventListener('click', flipCard);
             grid.classList.add(levelGame);
             grid.appendChild(card);
+            staticArray = array;
+            
         }
+        indicateRecords(localName)
     }
 
     // Переворачиваем карточку
@@ -379,7 +398,44 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function checkingOpenCards() {
         if(cardsWon.length === cardLevel.length) {
-            console.log('Победа')
+            modalWindow.style.display = 'flex';
         }
     }
+
+    closeModalBtn.onclick = () => {
+        modalWindow.style.display = 'none';
+    }
+
+    saveCountBtn.onclick = () => {
+        if(namePerson.value === '') {
+            namePerson.classList.add('error');
+        } else {
+            namePerson.classList.remove('error');
+            staticArray.push({name: namePerson.value, value: Number(resultDisplay.innerHTML)})
+            console.log(staticArray);
+            namePerson.value === '';
+        }
+        localStorage.setItem(localName, JSON.stringify(staticArray))
+    }
+
+    function indicateRecords(localName) {
+        recordTable.innerHTML = '';
+        if(localStorage.getItem(localName)) {
+            JSON.parse(localStorage.getItem(localName)).map(record => {
+                recordTable.innerHTML += convertToHtml(record);
+            })
+        } else {
+            recordTable.innerHTML = `<div class="game-record">
+                <p>Нет рекордов</p>
+            </div>`;
+        }
+    }
+
+    function convertToHtml(record) {
+        return `<div class="game-record">
+            <p>${record.name}</p>
+            <p>${record.value}</p>
+        </div>`
+    }
+    
 })
